@@ -30,7 +30,7 @@ def get_options(args):
     return source, target
 
 
-def parse(source, weapons=["Flail", "Mace", "Morning Star", "Spear", "Greataxe"]):
+def parse(source, weapons=["Flail", "Greataxe", "Mace", "Morning Star", "Spear"]):
     data = {}
     wpn_group_re = "WPN_({})".format('|'.join(weapons))
     with open(source, "r") as f:
@@ -76,6 +76,8 @@ def parse(source, weapons=["Flail", "Mace", "Morning Star", "Spear", "Greataxe"]
 
 def add_versatile(props):
     p = set(props.split(';'))
+    if 'Twohanded' in p:
+        p.remove('Twohanded')
     p.add('Versatile')
     properties = ';'.join(sorted(p))
     return f'data "Weapon Properties" "{properties}"'
